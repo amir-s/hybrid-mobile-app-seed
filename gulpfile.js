@@ -11,6 +11,10 @@ var gulp = require('gulp'),
 //   .pipe(gulp.dest('public/'));
 // });
 
+gulp.task('templates', function() {
+  gulp.src('app/templates/**/*').pipe(gulp.dest('www/templates'));
+});
+
 gulp.task('minify', function() {
   gulp.src([
       'app/*.js',
@@ -26,12 +30,18 @@ gulp.task('minify', function() {
 });
 
 
-gulp.task('watch', ['minify'], function() {
+gulp.task('watch', ['minify', 'templates'], function() {
   gulp.watch([
     'app/**/*.js',
     'app/*.js'
   ],[
     'minify'
+  ]);
+  gulp.watch([
+    'app/templates/**/*',
+    'app/templates/*'
+  ],[
+    'templates'
   ]);
 });
 
